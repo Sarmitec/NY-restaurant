@@ -1,0 +1,2336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#070A12">
+
+    <!-- ============================================================
+         EXPECTED IMAGE ASSETS (all WebP, already referenced below)
+         Drop real photography in with these exact names to replace the
+         generated placeholders. Nothing else needs to change.
+           assets/images/hero.webp         1920 x 1200  desktop hero
+           assets/images/hero-mobile.webp   960 x 1400  portrait hero (<=700px)
+           assets/images/og-image.webp     1200 x  630  social sharing card
+           assets/images/menu/  480 x 300 each, 27 files:
+             breakfast-1..7.webp    burgers-1..4.webp   sandwiches-1..2.webp
+             dinner-1.webp          desserts-1..7.webp  drinks-1..6.webp
+         If any file is missing the layout falls back to a neutral dark
+         placeholder that shows the dish name (see .fallback styles).
+         ============================================================ -->
+
+    <!-- ===================== SEO ===================== -->
+    <title>Tick Tock Diner NY | 24-Hour American Diner on 8th Avenue, Manhattan</title>
+    <meta name="description" content="Tick Tock Diner, 481 8th Avenue, Manhattan. Open 24 hours, breakfast all day, across from Penn Station. Call (212) 268-8444.">
+    <meta name="keywords" content="Tick Tock Diner NY, 24 hour diner Manhattan, breakfast near Penn Station, 8th Avenue diner, American diner NYC">
+    <meta name="author" content="Tick Tock Diner NY">
+    <link rel="canonical" href="https://www.ticktockdinerny.com/">
+
+    <!-- ===================== OPEN GRAPH / SOCIAL ===================== -->
+    <meta property="og:type" content="restaurant.restaurant">
+    <meta property="og:site_name" content="Tick Tock Diner NY">
+    <meta property="og:title" content="Tick Tock Diner NY | Open 24 Hours on 8th Avenue">
+    <meta property="og:description" content="Tick Tock Diner, 481 8th Avenue, Manhattan. Open 24 hours, breakfast all day, across from Penn Station. Call (212) 268-8444.">
+    <!-- TODO(client): upload the real Open Graph image to /assets/images/og-image.webp and keep this URL in sync. -->
+    <meta property="og:image" content="https://www.ticktockdinerny.com/assets/images/og-image.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://www.ticktockdinerny.com/">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tick Tock Diner NY | Open 24 Hours on 8th Avenue">
+    <meta name="twitter:description" content="Tick Tock Diner, 481 8th Avenue, Manhattan. Open 24 hours, breakfast all day, across from Penn Station.">
+    <meta name="twitter:image" content="https://www.ticktockdinerny.com/assets/images/og-image.webp">
+
+    <!-- Inline SVG favicon: a neon clock face. Avoids a network request. -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23070A12' stroke='%23FF2E76' stroke-width='7'/%3E%3Cpath d='M50 26v26l19 11' stroke='%23F6F0E1' stroke-width='7' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+
+    <!-- ===================== FONTS ===================== -->
+    <!-- Single display family (Bebas Neue) for the Art-Deco signage look.
+         Body copy uses the native system stack: zero extra requests. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap">
+
+    <!-- ===================== STRUCTURED DATA =====================
+         The "hasMenu" section is injected at runtime from the MENU array
+         below, so every price lives in exactly one place. -->
+    <script type="application/ld+json" id="ldRestaurant">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "Tick Tock Diner NY",
+      "slogan": "The Largest Diner in New York City",
+      "description": "Classic American diner comfort food with Italian, Greek and Tex-Mex influences. Breakfast served all day, open 24 hours, 7 days a week.",
+      "url": "https://www.ticktockdinerny.com/",
+      "telephone": "+1-212-268-8444",
+      "email": "info@ticktockdinerny.com",
+      "priceRange": "$$",
+      "currenciesAccepted": "USD",
+      "foundingDate": "1997",
+      "servesCuisine": ["American", "Diner", "Breakfast", "Italian", "Greek", "Tex-Mex"],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "481 8th Avenue",
+        "addressLocality": "New York",
+        "addressRegion": "NY",
+        "postalCode": "10001",
+        "addressCountry": "US"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": 40.75242, "longitude": -73.993544 },
+      "hasMap": "https://www.google.com/maps/place/Tick+Tock+Diner+NY/@40.752424,-73.9957327,17z/data=!3m1!4b1!4m5!3m4!1s0x89c259ade8c24b29:0x1861ff239422a8fb!8m2!3d40.75242!4d-73.993544",
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "00:00",
+        "closes": "23:59"
+      }],
+      "acceptsReservations": "True",
+      "sameAs": [
+        "https://www.tripadvisor.com/Restaurant_Review-g60763-d425611-Reviews-Tick_Tock_Diner_NY-New_York_City_New_York.html"
+      ]
+    }
+    </script>
+
+    <style>
+        /* ============================================================
+           TICK TOCK DINER NY — Single-page landing page
+           ------------------------------------------------------------
+           01. Design tokens
+           02. Base & reset
+           03. Shared components (buttons, badges, section headers)
+           04. Sticky navigation
+           05. Hero
+           06. Marquee ticker
+           07. About strip
+           08. Menu (tabs / instant search / grid / cards)
+           09. Location, hours & map
+           10. Contact & reservation
+           11. Footer
+           12. Floating actions & toasts
+           13. Motion utilities
+           ============================================================ */
+
+        /* ---------- 01. Design tokens ---------- */
+        :root {
+            --ink: #070a12;
+            --ink-2: #0c111c;
+            --panel: #111826;
+            --panel-2: #161f31;
+            --cream: #f6f0e1;
+            --cream-2: rgba(246, 240, 225, .72);
+            --cream-3: rgba(246, 240, 225, .46);
+            --pink: #ff2e76;
+            --cyan: #3be0d6;
+            --amber: #f7b733;
+            --green: #4ade80;
+            --red: #ff5c5c;
+            --line: rgba(246, 240, 225, .10);
+            --line-2: rgba(246, 240, 225, .20);
+            --r-sm: 10px;
+            --r: 16px;
+            --r-lg: 24px;
+            --nav-h: 64px;
+            --container: 1180px;
+            --shadow: 0 24px 60px rgba(0, 0, 0, .45);
+            --ease: cubic-bezier(.22, .7, .3, 1);
+            --font-display: 'Bebas Neue', 'Haettenschweiler', 'Arial Narrow', Impact, sans-serif;
+            --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --font-serif: Georgia, 'Times New Roman', serif;
+        }
+
+        /* ---------- 02. Base & reset ---------- */
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: calc(var(--nav-h) + 16px);
+            -webkit-text-size-adjust: 100%;
+            color-scheme: dark;
+        }
+
+        body {
+            margin: 0;
+            background: var(--ink);
+            color: var(--cream);
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.65;
+            overflow-x: clip;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        img, svg { max-width: 100%; display: block; }
+        a { color: inherit; text-decoration: none; }
+        button, input, select, textarea { font: inherit; color: inherit; }
+        ul, ol { list-style: none; margin: 0; padding: 0; }
+        h1, h2, h3, h4 {
+            margin: 0;
+            font-family: var(--font-display);
+            font-weight: 400;
+            letter-spacing: .02em;
+            line-height: 1.02;
+            text-transform: uppercase;
+        }
+        p { margin: 0; }
+
+        :focus-visible {
+            outline: 2px solid var(--cyan);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        ::selection { background: var(--pink); color: #fff; }
+
+        .container {
+            width: 100%;
+            max-width: var(--container);
+            margin-inline: auto;
+            padding-inline: clamp(16px, 4vw, 28px);
+        }
+
+        .section {
+            position: relative;
+            padding-block: clamp(60px, 8vw, 110px);
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 12px;
+            z-index: 200;
+            padding: .7rem 1.1rem;
+            background: var(--pink);
+            color: #fff;
+            border-radius: 0 0 var(--r-sm) var(--r-sm);
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            transition: top .2s var(--ease);
+        }
+        .skip-link:focus { top: 0; }
+
+        /* Visually hidden but available to assistive technology. */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            clip-path: inset(50%);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* ---------- 03. Shared components ---------- */
+        .eyebrow {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: .85rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--amber);
+        }
+
+        .section-head {
+            max-width: 720px;
+            margin: 0 auto clamp(30px, 5vw, 54px);
+            text-align: center;
+        }
+        .section-head h2 {
+            font-size: clamp(2.1rem, 6.5vw, 3.8rem);
+            margin-block: 10px 14px;
+        }
+        .section-head p { color: var(--cream-2); }
+        .rule {
+            width: 72px;
+            height: 2px;
+            margin: 18px auto 0;
+            background: linear-gradient(90deg, transparent, var(--pink), var(--cyan), transparent);
+        }
+        .note {
+            display: block;
+            margin-top: 14px;
+            font-size: .84rem;
+            letter-spacing: .06em;
+            color: var(--cream-3);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .55rem;
+            padding: .95rem 1.6rem;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            background: none;
+            font-weight: 700;
+            font-size: .82rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform .25s var(--ease), box-shadow .25s var(--ease),
+                        background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease);
+        }
+        .btn--primary {
+            background: linear-gradient(135deg, var(--pink), #ff6a3d);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(255, 46, 118, .32);
+        }
+        .btn--primary:hover { transform: translateY(-3px); box-shadow: 0 16px 38px rgba(255, 46, 118, .45); }
+        .btn--cyan {
+            background: linear-gradient(135deg, var(--cyan), #2aa7ff);
+            color: #04222a;
+            box-shadow: 0 10px 30px rgba(59, 224, 214, .28);
+        }
+        .btn--cyan:hover { transform: translateY(-3px); box-shadow: 0 16px 38px rgba(59, 224, 214, .4); }
+        .btn--ghost {
+            border-color: var(--line-2);
+            color: var(--cream);
+            background: rgba(246, 240, 225, .04);
+        }
+        .btn--ghost:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-3px); }
+        .btn--block { width: 100%; }
+        .btn[disabled] { opacity: .55; cursor: not-allowed; transform: none; }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            padding: .34rem .7rem;
+            border-radius: 999px;
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .09em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, .35);
+        }
+        .badge--best-seller { background: linear-gradient(135deg, var(--amber), #ff8a3d); color: #2a1400; }
+        .badge--spicy { background: linear-gradient(135deg, #ff4d4d, var(--pink)); color: #fff; }
+        .badge--vegetarian { background: linear-gradient(135deg, var(--green), #22c55e); color: #04250f; }
+        .badge--new { background: linear-gradient(135deg, var(--cyan), #3b82f6); color: #03252b; }
+        .badge--chefs-special { background: linear-gradient(135deg, #c084fc, #7c3aed); color: #fff; }
+
+        /* ---------- 04. Sticky navigation ---------- */
+        .nav {
+            position: fixed;
+            inset: 0 0 auto;
+            z-index: 100;
+            height: var(--nav-h);
+            display: flex;
+            align-items: center;
+            background: transparent;
+            transition: background .3s var(--ease), box-shadow .3s var(--ease), height .3s var(--ease);
+        }
+        .nav.is-stuck {
+            background: rgba(7, 10, 18, .88);
+            backdrop-filter: blur(14px) saturate(140%);
+            -webkit-backdrop-filter: blur(14px) saturate(140%);
+            box-shadow: 0 1px 0 var(--line), 0 18px 40px rgba(0, 0, 0, .45);
+        }
+        .nav__inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .brand { display: flex; align-items: center; gap: 10px; }
+        .brand__mark { width: 36px; height: 36px; flex: none; }
+        .brand__text { display: flex; flex-direction: column; line-height: 1; }
+        .brand__name {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            letter-spacing: .07em;
+            white-space: nowrap;
+        }
+        .brand__sub {
+            font-size: .56rem;
+            letter-spacing: .32em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-top: 5px;
+            white-space: nowrap;
+        }
+
+        .nav__links { display: none; align-items: center; gap: 2px; }
+        .nav__link {
+            position: relative;
+            padding: .55rem .9rem;
+            font-size: .78rem;
+            font-weight: 600;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--cream-2);
+            transition: color .2s var(--ease);
+            white-space: nowrap;
+        }
+        .nav__link::after {
+            content: '';
+            position: absolute;
+            left: .9rem;
+            right: .9rem;
+            bottom: .25rem;
+            height: 2px;
+            background: linear-gradient(90deg, var(--pink), var(--cyan));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .28s var(--ease);
+        }
+        .nav__link:hover,
+        .nav__link.is-active { color: var(--cream); }
+        .nav__link:hover::after,
+        .nav__link.is-active::after { transform: scaleX(1); }
+        .nav__link--ext::after { background: linear-gradient(90deg, var(--amber), var(--cyan)); }
+
+        .nav__actions { display: flex; align-items: center; gap: 10px; }
+        .nav__call { display: none; }
+        .nav__toggle {
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 44px;
+            height: 44px;
+            padding: 0 10px;
+            border: 1px solid var(--line-2);
+            border-radius: 12px;
+            background: rgba(246, 240, 225, .05);
+            cursor: pointer;
+        }
+        .nav__toggle span {
+            display: block;
+            height: 2px;
+            background: var(--cream);
+            border-radius: 2px;
+            transition: transform .3s var(--ease), opacity .2s var(--ease);
+        }
+        .nav.is-open .nav__toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav.is-open .nav__toggle span:nth-child(2) { opacity: 0; }
+        .nav.is-open .nav__toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .nav__panel {
+            position: fixed;
+            inset: var(--nav-h) 0 auto;
+            z-index: 99;
+            background: rgba(7, 10, 18, .97);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--line);
+            padding: 10px clamp(16px, 4vw, 28px) 24px;
+            transform: translateY(-14px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .28s var(--ease), transform .28s var(--ease), visibility .28s;
+        }
+        .nav__panel.is-open { transform: none; opacity: 1; visibility: visible; }
+        .nav__panel a:not(.btn) {
+            display: block;
+            padding: .85rem .25rem;
+            border-bottom: 1px solid var(--line);
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: .06em;
+        }
+        .nav__panel a:not(.btn):last-of-type { border-bottom: 0; }
+        .nav__panel .btn { margin-top: 16px; }
+
+        /* ---------- 05. Hero ---------- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            padding-top: calc(var(--nav-h) + 44px);
+            padding-bottom: 90px;
+            overflow: hidden;
+        }
+        .hero__media {
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            /* Neutral Art-Deco gradient shown if the photo is missing. */
+            background:
+                radial-gradient(90% 60% at 50% 28%, rgba(255, 46, 118, .30), transparent 62%),
+                radial-gradient(70% 50% at 84% 78%, rgba(59, 224, 214, .22), transparent 65%),
+                linear-gradient(180deg, #0a1020 0%, #101828 48%, #05070c 100%);
+        }
+        .hero__media picture, .hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; }
+        .hero__media img { object-fit: cover; object-position: center 35%; }
+        .hero__scrim {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background:
+                radial-gradient(120% 85% at 50% 15%, rgba(7, 10, 18, .30), rgba(7, 10, 18, .88) 72%),
+                linear-gradient(180deg, rgba(7, 10, 18, .62) 0%, rgba(7, 10, 18, .18) 32%, var(--ink) 97%);
+        }
+        .hero__inner { position: relative; max-width: 880px; }
+        .hero__eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            padding: .45rem 1rem;
+            border: 1px solid var(--line-2);
+            border-radius: 999px;
+            background: rgba(7, 10, 18, .5);
+            backdrop-filter: blur(6px);
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--cream-2);
+        }
+        .pulse {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 0 0 rgba(74, 222, 128, .7);
+            animation: pulse 2.4s infinite;
+        }
+        @keyframes pulse {
+            70% { box-shadow: 0 0 0 12px rgba(74, 222, 128, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+        }
+        .hero__title {
+            font-size: clamp(3.6rem, 15vw, 9rem);
+            line-height: .86;
+            margin-block: 18px 20px;
+        }
+        .hero__title .line { display: block; }
+        .hero__title .neon {
+            color: var(--pink);
+            text-shadow: 0 0 18px rgba(255, 46, 118, .55), 0 0 62px rgba(255, 46, 118, .32);
+        }
+        .hero__title .sub {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: clamp(.82rem, 2.6vw, 1.2rem);
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-top: 16px;
+            text-shadow: 0 0 24px rgba(59, 224, 214, .35);
+        }
+        .hero__lead {
+            max-width: 600px;
+            font-size: clamp(.98rem, 2.2vw, 1.1rem);
+            color: var(--cream-2);
+        }
+        .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+        .hero__stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px 14px;
+            margin-top: 46px;
+            padding-top: 26px;
+            border-top: 1px solid var(--line);
+        }
+        .hero__stats strong {
+            display: block;
+            font-family: var(--font-display);
+            font-size: clamp(1.7rem, 5vw, 2.4rem);
+            letter-spacing: .04em;
+            color: var(--amber);
+        }
+        .hero__stats span {
+            font-size: .72rem;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            color: var(--cream-3);
+        }
+        .hero__scroll {
+            position: absolute;
+            left: 50%;
+            bottom: 22px;
+            transform: translateX(-50%);
+            width: 26px;
+            height: 42px;
+            border: 2px solid var(--line-2);
+            border-radius: 14px;
+        }
+        .hero__scroll span {
+            position: absolute;
+            left: 50%;
+            top: 8px;
+            width: 4px;
+            height: 8px;
+            margin-left: -2px;
+            border-radius: 2px;
+            background: var(--cream-2);
+            animation: scrollDot 1.8s infinite;
+        }
+        @keyframes scrollDot {
+            0% { opacity: 0; transform: translateY(0); }
+            35% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(16px); }
+        }
+
+        /* ---------- 06. Marquee ticker ---------- */
+        .marquee {
+            position: relative;
+            overflow: hidden;
+            border-block: 1px solid var(--line);
+            background: linear-gradient(90deg, rgba(255, 46, 118, .12), rgba(59, 224, 214, .12));
+            padding: .75rem 0;
+        }
+        .marquee__track { display: flex; width: max-content; animation: marquee 34s linear infinite; }
+        .marquee__group { display: flex; align-items: center; gap: 2.6rem; padding-right: 2.6rem; }
+        .marquee__item {
+            display: flex;
+            align-items: center;
+            gap: 2.6rem;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--cream-2);
+            white-space: nowrap;
+        }
+        .marquee__item::after { content: '\2726'; color: var(--amber); }
+        @keyframes marquee { to { transform: translateX(-50%); } }
+
+        /* ---------- 07. About strip ---------- */
+        .about {
+            border-bottom: 1px solid var(--line);
+            background: linear-gradient(180deg, rgba(246, 240, 225, .03), transparent);
+            padding-block: clamp(38px, 5vw, 58px);
+        }
+        .about__inner { display: grid; grid-template-columns: 1fr; gap: 26px; }
+        .about__quote { margin: 0; }
+        .about__quote p {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4.4vw, 2.3rem);
+            line-height: 1.12;
+            letter-spacing: .03em;
+            text-transform: uppercase;
+            color: var(--cream);
+        }
+        .about__quote cite {
+            display: block;
+            margin-top: 10px;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: .85rem;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--amber);
+        }
+        .about__copy { margin-top: 16px; color: var(--cream-2); max-width: 52ch; }
+        .about__facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .about__facts li {
+            padding: 16px 14px;
+            border: 1px solid var(--line);
+            border-radius: var(--r);
+            background: var(--panel);
+        }
+        .about__facts strong {
+            display: block;
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 4.4vw, 2.2rem);
+            letter-spacing: .04em;
+            color: var(--cyan);
+        }
+        .about__facts span {
+            font-size: .68rem;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            color: var(--cream-3);
+        }
+
+        /* ---------- 08. Menu ---------- */
+        .menu__controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 34px;
+        }
+        .menu__search { position: relative; width: 100%; max-width: 460px; }
+        .menu__search svg {
+            position: absolute;
+            left: 1.05rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 19px;
+            height: 19px;
+            color: var(--cream-3);
+            pointer-events: none;
+        }
+        .menu__search input {
+            width: 100%;
+            padding: 1rem 3rem;
+            border: 1px solid var(--line-2);
+            border-radius: 999px;
+            background: rgba(246, 240, 225, .05);
+            color: var(--cream);
+            font-size: 1rem;
+            transition: border-color .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .menu__search input::placeholder { color: var(--cream-3); }
+        .menu__search input:focus {
+            outline: none;
+            border-color: var(--cyan);
+            background: rgba(246, 240, 225, .08);
+            box-shadow: 0 0 0 4px rgba(59, 224, 214, .13);
+        }
+        .menu__search input::-webkit-search-cancel-button { -webkit-appearance: none; }
+        .menu__clear {
+            position: absolute;
+            right: .5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+            place-items: center;
+            width: 32px;
+            height: 32px;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(246, 240, 225, .12);
+            color: var(--cream);
+            font-size: 1.1rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: background .2s var(--ease);
+        }
+        .menu__clear:hover { background: rgba(246, 240, 225, .24); }
+        .menu__clear.is-visible { display: grid; }
+
+        /* Wraps onto two rows on narrow phones so every category stays
+           visible without a sideways swipe. */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 6px 0 12px;
+        }
+        .tab {
+            flex: none;
+            padding: .72rem 1.35rem;
+            border: 1px solid var(--line-2);
+            border-radius: 999px;
+            background: rgba(246, 240, 225, .04);
+            color: var(--cream-2);
+            font-size: .76rem;
+            font-weight: 700;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background .25s var(--ease), color .25s var(--ease),
+                        border-color .25s var(--ease), box-shadow .25s var(--ease);
+        }
+        .tab:hover { color: var(--cream); border-color: var(--cream-3); }
+        .tab[aria-selected="true"] {
+            background: linear-gradient(135deg, var(--pink), #ff6a3d);
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 10px 26px rgba(255, 46, 118, .30);
+        }
+        .menu__count {
+            font-size: .78rem;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--cream-3);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 22px;
+        }
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(180deg, var(--panel), var(--ink-2));
+            border: 1px solid var(--line);
+            border-radius: var(--r);
+            overflow: hidden;
+            transition: transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease);
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: var(--line-2);
+            box-shadow: var(--shadow);
+        }
+        .card__media {
+            position: relative;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a2335, #0d1420);
+        }
+        .card__media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .55s var(--ease);
+        }
+        .card:hover .card__media img { transform: scale(1.07); }
+        .card__media .badge { position: absolute; top: 10px; left: 10px; z-index: 2; }
+
+        /* Shown in place of a photo that fails to load. */
+        .fallback {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            padding: 16px;
+            text-align: center;
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            letter-spacing: .05em;
+            color: rgba(246, 240, 225, .55);
+            background:
+                repeating-linear-gradient(135deg, rgba(246, 240, 225, .035) 0 10px, transparent 10px 20px);
+        }
+        .card__body { display: flex; flex-direction: column; gap: 8px; flex: 1; padding: 16px 18px 20px; }
+        .card__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+        .card__title { font-size: 1.3rem; line-height: 1.14; letter-spacing: .03em; }
+        .card__price {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            letter-spacing: .04em;
+            color: var(--amber);
+            white-space: nowrap;
+        }
+        .card__desc { font-size: .9rem; color: var(--cream-2); line-height: 1.55; }
+        .card__tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 10px; }
+        .card__tags li {
+            font-size: .68rem;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            color: var(--cream-3);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: .24rem .58rem;
+        }
+        mark { background: rgba(247, 183, 51, .30); color: var(--cream); border-radius: 3px; padding: 0 2px; }
+
+        .menu__empty {
+            display: none;
+            text-align: center;
+            padding: 54px 20px;
+            border: 1px dashed var(--line-2);
+            border-radius: var(--r-lg);
+            color: var(--cream-2);
+        }
+        .menu__empty.is-visible { display: block; }
+        .menu__empty h3 { font-size: 1.8rem; margin-bottom: 10px; }
+
+        /* ---------- 09. Location, hours & map ---------- */
+        .location__grid { display: grid; grid-template-columns: 1fr; gap: 26px; }
+        .hours-card {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: var(--r-lg);
+            padding: 22px;
+        }
+        .hours__status {
+            display: inline-flex;
+            align-items: center;
+            gap: .55rem;
+            padding: .5rem .95rem;
+            border-radius: 999px;
+            font-size: .74rem;
+            font-weight: 700;
+            letter-spacing: .11em;
+            text-transform: uppercase;
+        }
+        .status--open { background: rgba(74, 222, 128, .13); color: var(--green); border: 1px solid rgba(74, 222, 128, .32); }
+        .status--closed { background: rgba(255, 92, 92, .12); color: var(--red); border: 1px solid rgba(255, 92, 92, .30); }
+        .status__dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex: none; }
+        .status--open .status__dot { animation: pulse 2.4s infinite; }
+        .hours__list { margin-top: 20px; }
+        .hours__row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: .78rem 0;
+            border-bottom: 1px dashed var(--line);
+            font-size: .93rem;
+        }
+        .hours__row:last-child { border-bottom: 0; }
+        .hours__day { color: var(--cream-2); }
+        .hours__time { font-family: var(--font-display); font-size: 1.15rem; letter-spacing: .05em; }
+        .hours__row.is-today { color: var(--amber); }
+        .hours__row.is-today .hours__day { color: var(--amber); font-weight: 700; }
+        .hours__row.is-today .hours__day::after { content: '\2022'; margin-left: .5rem; color: var(--pink); }
+
+        .info-cards { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 22px; }
+        .info-card {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 16px 18px;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: var(--r);
+            transition: border-color .25s var(--ease), transform .25s var(--ease);
+        }
+        .info-card:hover { border-color: var(--line-2); transform: translateY(-3px); }
+        .info-card__icon {
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 40px;
+            flex: none;
+            border-radius: 12px;
+            background: rgba(255, 46, 118, .12);
+            color: var(--pink);
+        }
+        .info-card__icon svg { width: 19px; height: 19px; }
+        .info-card h3 { font-size: 1.1rem; margin-bottom: 3px; letter-spacing: .05em; }
+        .info-card p { font-size: .88rem; color: var(--cream-2); }
+
+        .map {
+            position: relative;
+            min-height: 340px;
+            border: 1px solid var(--line);
+            border-radius: var(--r-lg);
+            overflow: hidden;
+            background: var(--panel);
+        }
+        .map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+        .map__loader {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            gap: 12px;
+            padding: 20px;
+            text-align: center;
+            background: var(--panel);
+            font-size: .78rem;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--cream-3);
+        }
+        .map__loader span {
+            display: block;
+            width: 34px;
+            height: 34px;
+            margin: 0 auto;
+            border: 2px solid var(--line-2);
+            border-top-color: var(--cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .location__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+
+        /* ---------- 10. Contact & reservation ---------- */
+        .contact__grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
+        .form-card {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: var(--r-lg);
+            padding: clamp(20px, 4vw, 32px);
+        }
+        .form { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 22px; }
+        .field { display: flex; flex-direction: column; gap: 7px; }
+        .field--full { grid-column: 1 / -1; }
+        .field label {
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--cream-3);
+        }
+        .field input,
+        .field textarea {
+            width: 100%;
+            padding: .85rem 1rem;
+            border: 1px solid var(--line-2);
+            border-radius: 12px;
+            background: rgba(246, 240, 225, .05);
+            color: var(--cream);
+            transition: border-color .22s var(--ease), box-shadow .22s var(--ease);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .field textarea { min-height: 118px; resize: vertical; }
+        .field input:focus,
+        .field textarea:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 0 4px rgba(59, 224, 214, .13);
+        }
+        .field input::placeholder,
+        .field textarea::placeholder { color: rgba(246, 240, 225, .3); }
+        .field__error { font-size: .76rem; color: var(--red); min-height: 1em; }
+        .field.is-invalid input,
+        .field.is-invalid textarea { border-color: var(--red); }
+        .form__note { font-size: .8rem; color: var(--cream-3); }
+
+        .social { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+        .social a {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .6rem 1rem;
+            border: 1px solid var(--line-2);
+            border-radius: 999px;
+            font-size: .74rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--cream-2);
+            transition: border-color .25s var(--ease), color .25s var(--ease), transform .25s var(--ease);
+        }
+        .social a:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-3px); }
+        .social svg { width: 16px; height: 16px; }
+
+        /* ---------- 11. Footer ---------- */
+        .footer {
+            border-top: 1px solid var(--line);
+            background: var(--ink-2);
+            padding-block: 52px 34px;
+            margin-top: 20px;
+        }
+        .footer__grid { display: grid; grid-template-columns: 1fr; gap: 34px; }
+        .footer__brand .brand__name { font-size: 1.8rem; }
+        .footer__brand p { margin-top: 14px; max-width: 340px; font-size: .9rem; color: var(--cream-2); }
+        .footer__col h3 {
+            font-size: .95rem;
+            letter-spacing: .18em;
+            color: var(--amber);
+            margin-bottom: 14px;
+        }
+        .footer__col li { margin-bottom: 9px; }
+        .footer__col a, .footer__col span { font-size: .9rem; color: var(--cream-2); transition: color .2s; }
+        .footer__col a:hover { color: var(--cyan); }
+        .footer__bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 34px;
+            padding-top: 22px;
+            border-top: 1px solid var(--line);
+            font-size: .8rem;
+            color: var(--cream-3);
+        }
+
+        /* ---------- 12. Floating actions & toasts ---------- */
+        .mobile-bar {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 95;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--line);
+            border-top: 1px solid var(--line);
+            padding-bottom: env(safe-area-inset-bottom);
+            transform: translateY(115%);
+            transition: transform .3s var(--ease);
+        }
+        .mobile-bar.is-visible { transform: none; }
+        .mobile-bar__item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 10px 6px;
+            background: rgba(7, 10, 18, .96);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            font-size: .62rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--cream-2);
+        }
+        .mobile-bar__item svg { width: 20px; height: 20px; }
+        .mobile-bar__item.a--call { color: var(--pink); }
+        .mobile-bar__item.a--route { color: var(--cyan); }
+        .mobile-bar__item.a--book { color: var(--amber); }
+
+        .to-top {
+            position: fixed;
+            right: 16px;
+            bottom: 16px;
+            z-index: 96;
+            display: grid;
+            place-items: center;
+            width: 46px;
+            height: 46px;
+            border: 1px solid var(--line-2);
+            border-radius: 50%;
+            background: rgba(7, 10, 18, .85);
+            backdrop-filter: blur(8px);
+            color: var(--cream);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(12px);
+            transition: opacity .28s var(--ease), transform .28s var(--ease), visibility .28s, border-color .2s;
+        }
+        .to-top.is-visible { opacity: 1; visibility: visible; transform: none; }
+        .to-top:hover { border-color: var(--cyan); color: var(--cyan); }
+        .to-top svg { width: 18px; height: 18px; }
+
+        .toasts {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 92px;
+            z-index: 120;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: min(92vw, 420px);
+        }
+        .toast {
+            padding: .85rem 1.1rem;
+            border: 1px solid var(--line-2);
+            border-radius: 12px;
+            background: rgba(12, 17, 28, .97);
+            box-shadow: var(--shadow);
+            font-size: .88rem;
+            animation: toastIn .3s var(--ease);
+        }
+        .toast--ok { border-color: rgba(74, 222, 128, .45); color: var(--green); }
+        .toast--info { border-color: rgba(59, 224, 214, .45); color: var(--cyan); }
+        .toast--error { border-color: rgba(255, 92, 92, .45); color: var(--red); }
+        @keyframes toastIn { from { opacity: 0; transform: translateY(12px); } }
+
+        /* ---------- 13. Motion utilities ---------- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity .7s var(--ease), transform .7s var(--ease);
+        }
+        .reveal.is-visible { opacity: 1; transform: none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: .001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .001ms !important;
+            }
+            .reveal { opacity: 1; transform: none; }
+        }
+
+        /* ---------- Responsive breakpoints ---------- */
+        @media (min-width: 560px) {
+            .grid { grid-template-columns: repeat(2, 1fr); }
+            .form { grid-template-columns: repeat(2, 1fr); }
+            .info-cards { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 720px) {
+            :root { --nav-h: 74px; }
+            .hero__stats { grid-template-columns: repeat(4, 1fr); }
+            .about__inner { grid-template-columns: 1.05fr .95fr; align-items: center; gap: 40px; }
+            .footer__grid { grid-template-columns: 1.4fr 1fr 1fr; }
+            .footer__bottom { flex-direction: row; justify-content: space-between; align-items: center; }
+        }
+
+        @media (min-width: 900px) {
+            .nav__links { display: flex; }
+            .nav__call { display: inline-flex; }
+            .nav__toggle { display: none; }
+            .nav__panel { display: none; }
+            .mobile-bar { display: none; }
+            .grid { grid-template-columns: repeat(3, 1fr); gap: 26px; }
+            .contact__grid { grid-template-columns: 1.15fr .85fr; align-items: start; }
+            .info-cards { grid-template-columns: 1fr; }
+        }
+
+        @media (min-width: 1240px) {
+            .grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        /* Room for the fixed mobile action bar */
+        @media (max-width: 899px) {
+            body { padding-bottom: 62px; }
+            .to-top { bottom: 78px; }
+            .toasts { bottom: 96px; }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip-link" href="#menu">Skip to the menu</a>
+
+    <!-- ==================== 4.a. STICKY NAVBAR ==================== -->
+    <header class="nav" id="nav">
+        <div class="container nav__inner">
+            <a class="brand" href="#hero" aria-label="Tick Tock Diner NY, home">
+                <svg class="brand__mark" viewBox="0 0 100 100" aria-hidden="true">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#FF2E76" stroke-width="6"/>
+                    <circle cx="50" cy="50" r="37" fill="none" stroke="rgba(246,240,225,.25)" stroke-width="2"/>
+                    <path d="M50 26v25l18 11" fill="none" stroke="#F6F0E1" stroke-width="6" stroke-linecap="round"/>
+                    <circle cx="50" cy="50" r="4" fill="#3BE0D6"/>
+                </svg>
+                <span class="brand__text">
+                    <span class="brand__name">Tick Tock</span>
+                    <span class="brand__sub">Diner · NYC</span>
+                </span>
+            </a>
+
+            <nav class="nav__links" aria-label="Primary">
+                <a class="nav__link" href="#hero">Home</a>
+                <a class="nav__link" href="#menu">Menu</a>
+                <a class="nav__link" href="#location">Location</a>
+                <a class="nav__link" href="#contact">Contact</a>
+                <a class="nav__link nav__link--ext" href="https://app.yiftee.com/gifts/egift_and_gift_cards/tick-tock-diner-ny" target="_blank" rel="noopener">Gift Cards</a>
+            </nav>
+
+            <div class="nav__actions">
+                <a class="btn btn--ghost nav__call" href="tel:+12122688444">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>
+                    </svg>
+                    (212) 268-8444
+                </a>
+                <button class="nav__toggle" id="navToggle" type="button"
+                        aria-expanded="false" aria-controls="navPanel" aria-label="Open menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile drawer -->
+    <div class="nav__panel" id="navPanel">
+        <a href="#hero">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#location">Location</a>
+        <a href="#contact">Contact</a>
+        <a href="https://app.yiftee.com/gifts/egift_and_gift_cards/tick-tock-diner-ny" target="_blank" rel="noopener">Gift Cards</a>
+        <a class="btn btn--primary btn--block" href="tel:+12122688444">Call (212) 268-8444</a>
+    </div>
+
+    <main>
+        <!-- ==================== 3.b. HERO ==================== -->
+        <section class="hero" id="hero">
+            <div class="hero__media">
+                <picture>
+                    <source media="(max-width: 700px)" srcset="assets/images/hero-mobile.webp" type="image/webp">
+                    <img src="assets/images/hero.webp" width="1920" height="1200"
+                         alt="Art Deco neon interior of Tick Tock Diner NY on 8th Avenue in Manhattan"
+                         fetchpriority="high" decoding="async">
+                </picture>
+            </div>
+            <div class="hero__scrim" aria-hidden="true"></div>
+
+            <div class="container hero__inner">
+                <p class="hero__eyebrow">
+                    <span class="pulse" aria-hidden="true"></span>
+                    Open 24 Hours · Midtown since 1997
+                </p>
+                <h1 class="hero__title">
+                    <span class="line">Tick Tock</span>
+                    <span class="line neon">Diner</span>
+                    <span class="line sub">Manhattan · New York</span>
+                </h1>
+                <p class="hero__lead">
+                    The all-night American classic on 8th Avenue. Breakfast all day, big
+                    portions and a booth waiting for you, right across from Penn Station.
+                </p>
+                <div class="hero__cta">
+                    <a class="btn btn--primary" href="#menu">View Menu</a>
+                    <a class="btn btn--ghost" href="#location">Find Us</a>
+                    <a class="btn btn--cyan" href="tel:+12122688444">Call Now</a>
+                </div>
+                <ul class="hero__stats">
+                    <li><strong>24/7</strong><span>Open, 7 days a week</span></li>
+                    <li><strong>1997</strong><span>Midtown location opened</span></li>
+                    <li><strong>280</strong><span>Seats</span></li>
+                    <li><strong>8th Ave</strong><span>Across from Penn Station</span></li>
+                </ul>
+            </div>
+            <a class="hero__scroll" href="#menu" aria-label="Scroll to the menu"><span></span></a>
+        </section>
+
+        <!-- ==================== 6. MARQUEE ==================== -->
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee__track">
+                <div class="marquee__group">
+                    <span class="marquee__item">Open 24 Hours</span>
+                    <span class="marquee__item">Breakfast All Day</span>
+                    <span class="marquee__item">The Largest Diner in NYC</span>
+                    <span class="marquee__item">Across from Penn Station</span>
+                    <span class="marquee__item">481 8th Avenue</span>
+                    <span class="marquee__item">Since 1997</span>
+                </div>
+                <div class="marquee__group">
+                    <span class="marquee__item">Open 24 Hours</span>
+                    <span class="marquee__item">Breakfast All Day</span>
+                    <span class="marquee__item">The Largest Diner in NYC</span>
+                    <span class="marquee__item">Across from Penn Station</span>
+                    <span class="marquee__item">481 8th Avenue</span>
+                    <span class="marquee__item">Since 1997</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ABOUT STRIP ==================== -->
+        <section class="about" id="about" aria-label="About Tick Tock Diner NY">
+            <div class="container about__inner">
+                <div class="reveal">
+                    <blockquote class="about__quote">
+                        <p>The Largest Diner in New York City</p>
+                        <cite>Tick Tock Diner NY — our tagline</cite>
+                    </blockquote>
+                    <p class="about__copy">
+                        Classic American diner comfort food with Italian, Greek and Tex-Mex
+                        influences. Breakfast is served all day: more than a dozen omelets,
+                        farm-fresh eggs any style, pancakes, Belgian waffles and French toast.
+                        Two locations: Midtown Manhattan and Clifton, New Jersey.
+                    </p>
+                </div>
+                <ul class="about__facts reveal">
+                    <li><strong>1997</strong><span>Midtown opened</span></li>
+                    <li><strong>280</strong><span>Seats</span></li>
+                    <li><strong>24/7</strong><span>Open 7 days a week</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ==================== 3.c. DYNAMIC MENU ==================== -->
+        <section class="section" id="menu">
+            <div class="container">
+                <header class="section-head reveal">
+                    <p class="eyebrow">Straight from the Griddle</p>
+                    <h2>The Menu</h2>
+                    <p>Classic diner favorites, served around the clock. Filter by category
+                       or search for an ingredient — no waiting, no reload.</p>
+                    <span class="note">Selected favorites. Ask your server about the full menu.</span>
+                    <div class="rule"></div>
+                </header>
+
+                <div class="menu__controls reveal">
+                    <div class="menu__search">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5" stroke-linecap="round"/>
+                        </svg>
+                        <label class="sr-only" for="menuSearch">Search the menu</label>
+                        <input type="search" id="menuSearch" autocomplete="off" spellcheck="false"
+                               placeholder="Try &quot;omelet&quot;, &quot;coffee&quot; or &quot;waffle&quot;">
+                        <button class="menu__clear" id="menuClear" type="button" aria-label="Clear search">&times;</button>
+                    </div>
+
+                    <div class="tabs" id="menuTabs" role="tablist" aria-label="Menu categories">
+                        <button class="tab" role="tab" id="tab-all" data-cat="all" aria-selected="true" aria-controls="menuGrid">All</button>
+                        <button class="tab" role="tab" id="tab-breakfast" data-cat="breakfast" aria-selected="false" aria-controls="menuGrid" tabindex="-1">Breakfast</button>
+                        <button class="tab" role="tab" id="tab-sandwiches" data-cat="sandwiches" aria-selected="false" aria-controls="menuGrid" tabindex="-1">Burgers &amp; Sandwiches</button>
+                        <button class="tab" role="tab" id="tab-dinner" data-cat="dinner" aria-selected="false" aria-controls="menuGrid" tabindex="-1">Dinner &amp; Classics</button>
+                        <button class="tab" role="tab" id="tab-desserts" data-cat="desserts" aria-selected="false" aria-controls="menuGrid" tabindex="-1">Desserts</button>
+                        <button class="tab" role="tab" id="tab-drinks" data-cat="drinks" aria-selected="false" aria-controls="menuGrid" tabindex="-1">Drinks</button>
+                    </div>
+
+                    <p class="menu__count" id="menuCount" role="status" aria-live="polite">Loading the menu…</p>
+                </div>
+
+                <div class="grid" id="menuGrid" role="tabpanel" aria-labelledby="tab-all" tabindex="0"></div>
+
+                <div class="menu__empty" id="menuEmpty">
+                    <h3>Nothing on that plate</h3>
+                    <p>We could not find a dish matching your search. Try another ingredient, or reset the filters.</p>
+                    <p style="margin-top:18px">
+                        <a class="btn btn--ghost" href="#contact">Ask us in person</a>
+                    </p>
+                </div>
+
+                <noscript>
+                    <p style="margin-top:24px;color:var(--cream-2)">
+                        Please enable JavaScript to browse the menu, or call (212) 268-8444.
+                    </p>
+                </noscript>
+            </div>
+        </section>
+
+        <!-- ==================== 3.d. LOCATION & HOURS ==================== -->
+        <section class="section" id="location">
+            <div class="container">
+                <header class="section-head reveal">
+                    <p class="eyebrow">Corner of 34th Street &amp; 8th Avenue</p>
+                    <h2>Find Us</h2>
+                    <p>481 8th Avenue, New York, NY 10001 — directly across the street
+                       from Penn Station.</p>
+                    <div class="rule"></div>
+                </header>
+
+                <div class="location__grid">
+                    <!-- Hours -->
+                    <div class="hours-card reveal">
+                        <span class="hours__status status--open" id="statusPill">
+                            <span class="status__dot" aria-hidden="true"></span>
+                            <span id="statusText">Open now · 24 hours</span>
+                        </span>
+
+                        <ul class="hours__list" id="hoursList" aria-label="Opening hours by day">
+                            <!-- Rendered by JavaScript -->
+                        </ul>
+
+                        <div class="info-cards">
+                            <a class="info-card" href="tel:+12122688444">
+                                <span class="info-card__icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>
+                                    </svg>
+                                </span>
+                                <span>
+                                    <h3>Call the Diner</h3>
+                                    <p>(212) 268-8444</p>
+                                </span>
+                            </a>
+                            <a class="info-card" href="https://www.google.com/maps/place/Tick+Tock+Diner+NY/@40.752424,-73.9957327,17z/data=!3m1!4b1!4m5!3m4!1s0x89c259ade8c24b29:0x1861ff239422a8fb!8m2!3d40.75242!4d-73.993544" target="_blank" rel="noopener">
+                                <span class="info-card__icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 21s-7-5.7-7-11a7 7 0 1 1 14 0c0 5.3-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/>
+                                    </svg>
+                                </span>
+                                <span>
+                                    <h3>Address</h3>
+                                    <p>481 8th Avenue, New York, NY 10001</p>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Map -->
+                    <div class="reveal">
+                        <div class="map" id="map">
+                            <div class="map__loader" id="mapLoader">
+                                <div>
+                                    <span aria-hidden="true"></span>
+                                    Loading the neighborhood
+                                </div>
+                            </div>
+                        </div>
+                        <div class="location__actions">
+                            <a class="btn btn--primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=Tick+Tock+Diner+NY+481+8th+Avenue+New+York+NY+10001" target="_blank" rel="noopener">Get Directions</a>
+                            <a class="btn btn--ghost" href="https://www.google.com/maps/place/Tick+Tock+Diner+NY/@40.752424,-73.9957327,17z/data=!3m1!4b1!4m5!3m4!1s0x89c259ade8c24b29:0x1861ff239422a8fb!8m2!3d40.75242!4d-73.993544" target="_blank" rel="noopener">Open in Maps</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 3.e. CONTACT & RESERVATIONS ==================== -->
+        <section class="section" id="contact">
+            <div class="container">
+                <header class="section-head reveal">
+                    <p class="eyebrow">Book a Booth</p>
+                    <h2>Reservations</h2>
+                    <p>Reserve a table online or call us, we are open 24 hours. Walk-ins welcome.</p>
+                    <div class="rule"></div>
+                </header>
+
+                <div class="contact__grid">
+                    <!-- Reservation options -->
+                    <div class="form-card reveal">
+                        <h3 style="font-size:1.5rem">Reserve a table</h3>
+                        <div class="location__actions" style="margin-top:16px">
+                            <!-- TODO(client): confirm this is the official reservation link. -->
+                            <a class="btn btn--primary" href="https://www.opentable.com/restaurant/profile/486352" target="_blank" rel="noopener">Reserve on OpenTable</a>
+                            <a class="btn btn--ghost" href="tel:+12122688444">Call (212) 268-8444</a>
+                        </div>
+
+                        <h3 style="font-size:1.3rem;margin-top:30px">Send us a message</h3>
+                        <p class="form__note" style="margin-top:6px">
+                            This opens your email app to send your message.
+                        </p>
+
+                        <form class="form" id="contactForm" novalidate>
+                            <div class="field">
+                                <label for="cFirst">First name</label>
+                                <input type="text" id="cFirst" name="firstName" autocomplete="given-name" placeholder="Jane">
+                                <span class="field__error" id="errFirst" aria-live="polite"></span>
+                            </div>
+                            <div class="field">
+                                <label for="cLast">Last name</label>
+                                <input type="text" id="cLast" name="lastName" autocomplete="family-name" placeholder="Cooper">
+                                <span class="field__error" id="errLast" aria-live="polite"></span>
+                            </div>
+                            <div class="field field--full">
+                                <label for="cEmail">Email</label>
+                                <input type="email" id="cEmail" name="email" autocomplete="email" placeholder="jane@example.com">
+                                <span class="field__error" id="errEmail" aria-live="polite"></span>
+                            </div>
+                            <div class="field field--full">
+                                <label for="cMessage">Message</label>
+                                <textarea id="cMessage" name="message" placeholder="Table size, date and time, or anything else…"></textarea>
+                                <span class="field__error" id="errMessage" aria-live="polite"></span>
+                            </div>
+                            <div class="field field--full">
+                                <button class="btn btn--cyan btn--block" type="submit" id="contactSubmit">Send by email</button>
+                                <p class="form__note">
+                                    Nothing is stored or sent from this website — the button opens
+                                    your own email app addressed to info@ticktockdinerny.com.
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Contact details -->
+                    <aside class="reveal">
+                        <h3 style="font-size:1.5rem;margin-bottom:6px">Come on in</h3>
+                        <p style="color:var(--cream-2);margin-bottom:20px">
+                            We never close. Walk-ins are welcome at any hour — the coffee is always on.
+                        </p>
+
+                        <div class="info-cards" style="margin-top:0">
+                            <a class="info-card" href="tel:+12122688444">
+                                <span class="info-card__icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>
+                                    </svg>
+                                </span>
+                                <span>
+                                    <h3>Phone</h3>
+                                    <p>(212) 268-8444</p>
+                                </span>
+                            </a>
+                            <a class="info-card" href="mailto:info@ticktockdinerny.com">
+                                <span class="info-card__icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/>
+                                    </svg>
+                                </span>
+                                <span>
+                                    <h3>Email</h3>
+                                    <p>info@ticktockdinerny.com</p>
+                                </span>
+                            </a>
+                            <a class="info-card" href="https://www.google.com/maps/place/Tick+Tock+Diner+NY/@40.752424,-73.9957327,17z/data=!3m1!4b1!4m5!3m4!1s0x89c259ade8c24b29:0x1861ff239422a8fb!8m2!3d40.75242!4d-73.993544" target="_blank" rel="noopener">
+                                <span class="info-card__icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 21s-7-5.7-7-11a7 7 0 1 1 14 0c0 5.3-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/>
+                                    </svg>
+                                </span>
+                                <span>
+                                    <h3>Address</h3>
+                                    <p>481 8th Avenue, New York, NY 10001</p>
+                                </span>
+                            </a>
+                            <a class="info-card" href="https://app.yiftee.com/gifts/egift_and_gift_cards/tick-tock-diner-ny" target="_blank" rel="noopener">
+                                <span class="info-card__icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M12 4v16M2 12h20"/>
+                                    </svg>
+                                </span>
+                                <span>
+                                    <h3>Gift Cards</h3>
+                                    <p>Send a digital gift card</p>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="social">
+                            <a href="https://www.tripadvisor.com/Restaurant_Review-g60763-d425611-Reviews-Tick_Tock_Diner_NY-New_York_City_New_York.html" target="_blank" rel="noopener">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/>
+                                </svg>
+                                TripAdvisor
+                            </a>
+                            <!-- TODO(client): add official Instagram / Facebook / Yelp URLs here if wanted. -->
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==================== 3.e. FOOTER ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__brand">
+                    <a class="brand" href="#hero">
+                        <svg class="brand__mark" viewBox="0 0 100 100" aria-hidden="true">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#FF2E76" stroke-width="6"/>
+                            <path d="M50 26v25l18 11" fill="none" stroke="#F6F0E1" stroke-width="6" stroke-linecap="round"/>
+                            <circle cx="50" cy="50" r="4" fill="#3BE0D6"/>
+                        </svg>
+                        <span class="brand__text">
+                            <span class="brand__name">Tick Tock</span>
+                            <span class="brand__sub">Diner · NYC</span>
+                        </span>
+                    </a>
+                    <p>The all-night American diner on 8th Avenue. Open 24 hours, 7 days a week.</p>
+                    <div class="social" style="margin-top:18px">
+                        <a href="https://www.tripadvisor.com/Restaurant_Review-g60763-d425611-Reviews-Tick_Tock_Diner_NY-New_York_City_New_York.html" target="_blank" rel="noopener">TripAdvisor</a>
+                        <a href="https://app.yiftee.com/gifts/egift_and_gift_cards/tick-tock-diner-ny" target="_blank" rel="noopener">Gift Cards</a>
+                    </div>
+                </div>
+
+                <div class="footer__col">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#location">Location &amp; Hours</a></li>
+                        <li><a href="#contact">Reservations</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__col">
+                    <h3>Visit</h3>
+                    <ul>
+                        <li><a href="tel:+12122688444">(212) 268-8444</a></li>
+                        <li><a href="mailto:info@ticktockdinerny.com">info@ticktockdinerny.com</a></li>
+                        <li><span>481 8th Avenue</span></li>
+                        <li><span>New York, NY 10001</span></li>
+                        <li><span>Fax: (212) 268-8443</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer__bottom">
+                <span>&copy; <span id="year">2026</span> Tick Tock Diner NY. All rights reserved.</span>
+                <span>Made for the midnight crowd.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== FLOATING ACTIONS (MOBILE) ==================== -->
+    <nav class="mobile-bar" id="mobileBar" aria-label="Quick actions">
+        <a class="mobile-bar__item a--call" href="tel:+12122688444">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>
+            </svg>
+            Call
+        </a>
+        <a class="mobile-bar__item a--route" href="https://www.google.com/maps/dir/?api=1&amp;destination=Tick+Tock+Diner+NY+481+8th+Avenue+New+York+NY+10001" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M3 11l18-8-8 18-2-8z"/>
+            </svg>
+            Route
+        </a>
+        <a class="mobile-bar__item a--book" href="#contact">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/>
+            </svg>
+            Book
+        </a>
+    </nav>
+
+    <button class="to-top" id="toTop" type="button" aria-label="Back to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 19V5M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+    <script>
+        /* ============================================================
+           TICK TOCK DINER NY — application script
+           Pure vanilla JavaScript, zero dependencies, no backend.
+           ------------------------------------------------------------
+           1.  Helpers (escaping, folding, formatting)
+           2.  MENU DATA  <- the only place to edit dishes and prices
+           3.  Structured data (hasMenu generated from the MENU array)
+           4.  Navigation (sticky state, drawer, scroll-spy)
+           5.  Reveal on scroll (static sections only)
+           6.  Menu engine (render, tabs, instant search, highlighting)
+           7.  Opening hours & live status (America/New_York)
+           8.  Lazy map embed
+           9.  Contact form (mailto, no server)
+           10. Floating actions, image fallback & toasts
+           ============================================================ */
+        (function () {
+            'use strict';
+
+            /* ---------- 1. Helpers ---------- */
+
+            var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
+            var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
+
+            /* Escape a string for safe insertion into innerHTML. */
+            function escapeHtml(value) {
+                return String(value)
+                    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+            }
+
+            /* Fold one character the same way for searching and highlighting:
+               lower case, drop Arabic diacritics, unify Arabic letter variants. */
+            function foldChar(ch) {
+                var s = ch.toLowerCase();
+                if (s.length > 1) { s = s.charAt(0); }
+                s = s.replace(/[\u064B-\u065F\u0670]/g, '');
+                s = s.replace(/[\u0623\u0625\u0622]/g, '\u0627');
+                s = s.replace(/\u0629/g, '\u0647');
+                s = s.replace(/\u0649/g, '\u064A');
+                return s;
+            }
+
+            /* Fold a whole string and keep a map back to the original indices
+               so highlighting can slice the ORIGINAL text safely. */
+            function foldText(text) {
+                var out = '';
+                var map = [];
+                for (var i = 0; i < text.length; i++) {
+                    var folded = foldChar(text.charAt(i));
+                    for (var k = 0; k < folded.length; k++) {
+                        out += folded.charAt(k);
+                        map.push(i);
+                    }
+                }
+                return { text: out, map: map };
+            }
+
+            /* Normalised text for plain comparisons (search filtering). */
+            function normalize(text) {
+                return foldText(text).text.replace(/\s+/g, ' ').trim();
+            }
+
+            function formatPrice(cents) {
+                return '$' + (cents / 100).toFixed(2);
+            }
+
+            /* ============================================================
+               2. MENU DATA: EDIT HERE ONLY
+               ------------------------------------------------------------
+               TODO(client): every dish, description, price and image below
+               is PLACEHOLDER content created for the layout - it is not the
+               restaurant's real menu. Replace it with the real menu and the
+               real prices, and swap the image files in assets/images/menu/.
+               The "category" values must match the tab ids below:
+                 breakfast | sandwiches | dinner | desserts | drinks
+               ============================================================ */
+            var MENU = [
+                /* ---- Breakfast ---- */
+                { name: 'Fluffy Buttermilk Pancakes', price: 1495, category: 'breakfast',
+                  desc: 'Golden griddle cakes with maple butter and berry compote.',
+                  tags: ['buttermilk', 'maple', 'berries'], badge: 'Best Seller', badgeClass: 'best-seller',
+                  img: 'assets/images/menu/breakfast-1.webp' },
+                { name: 'Two-Egg Breakfast', price: 1350, category: 'breakfast',
+                  desc: 'Two fried eggs, home fries, buttered toast and your choice of bacon or sausage.',
+                  tags: ['eggs', 'home fries', 'toast'], img: 'assets/images/menu/breakfast-2.webp' },
+                { name: 'The Tick Tock Omelette', price: 1695, category: 'breakfast',
+                  desc: 'Three eggs folded with spinach, tomato and feta, served with sourdough.',
+                  tags: ['eggs', 'spinach', 'feta'], badge: "Chef's Special", badgeClass: 'chefs-special',
+                  img: 'assets/images/menu/breakfast-3.webp' },
+                { name: 'Belgian Waffle', price: 1525, category: 'breakfast',
+                  desc: 'Crisp pearl-sugar waffle topped with strawberries and whipped cream.',
+                  tags: ['waffle', 'strawberry', 'whipped cream'], img: 'assets/images/menu/breakfast-4.webp' },
+                { name: 'Eggs Benedict', price: 1650, category: 'breakfast',
+                  desc: 'Poached eggs, Canadian bacon and hollandaise on a toasted English muffin.',
+                  tags: ['poached eggs', 'bacon', 'hollandaise'], img: 'assets/images/menu/breakfast-5.webp' },
+                { name: 'Avocado Toast', price: 1400, category: 'breakfast',
+                  desc: 'Smashed avocado, chilli oil and a poached egg on thick sourdough.',
+                  tags: ['avocado', 'chilli oil', 'sourdough'], badge: 'Vegetarian', badgeClass: 'vegetarian',
+                  img: 'assets/images/menu/breakfast-6.webp' },
+                { name: 'Banana Walnut French Toast', price: 1550, category: 'breakfast',
+                  desc: 'Thick-cut brioche with caramelised banana and toasted walnuts.',
+                  tags: ['brioche', 'banana', 'walnut'], img: 'assets/images/menu/breakfast-7.webp' },
+
+                /* ---- Burgers & Sandwiches ---- */
+                { name: 'Classic Tick Tock Burger', price: 1850, category: 'sandwiches',
+                  desc: 'Half-pound Angus blend, aged cheddar, lettuce, tomato and house pickle.',
+                  tags: ['angus', 'cheddar', 'pickle'], badge: 'Best Seller', badgeClass: 'best-seller',
+                  img: 'assets/images/menu/burgers-1.webp' },
+                { name: 'Double Smokehouse', price: 2300, category: 'sandwiches',
+                  desc: 'Two patties, smoked bacon, crispy onions, BBQ jam and smoked gouda.',
+                  tags: ['double patty', 'bacon', 'bbq'], badge: 'Spicy', badgeClass: 'spicy',
+                  img: 'assets/images/menu/burgers-2.webp' },
+                { name: 'Classic Cheeseburger & Fries', price: 1795, category: 'sandwiches',
+                  desc: 'Single patty, American cheese and a tower of golden fries with ketchup.',
+                  tags: ['cheeseburger', 'fries'], img: 'assets/images/menu/burgers-3.webp' },
+                { name: 'The Big Dill', price: 1975, category: 'sandwiches',
+                  desc: 'Pastrami, sauerkraut, Swiss cheese and mustard on rye bread.',
+                  tags: ['pastrami', 'sauerkraut', 'swiss'], img: 'assets/images/menu/sandwiches-1.webp' },
+                { name: 'Turkey Club Melt', price: 1825, category: 'sandwiches',
+                  desc: 'Grilled turkey, bacon, avocado and mayo on toasted sourdough.',
+                  tags: ['turkey', 'avocado', 'melt'], img: 'assets/images/menu/sandwiches-2.webp' },
+                { name: 'Green Room Veggie Burger', price: 1750, category: 'sandwiches',
+                  desc: 'Black bean and quinoa patty, avocado, sprouts and chipotle aioli.',
+                  tags: ['black bean', 'quinoa', 'aioli'], badge: 'Vegetarian', badgeClass: 'vegetarian',
+                  img: 'assets/images/menu/burgers-4.webp' },
+
+                /* ---- Dinner & Classics ---- */
+                { name: 'Blue Plate Meatloaf', price: 1895, category: 'dinner',
+                  desc: 'All-beef meatloaf with mashed potato and rich brown gravy.',
+                  tags: ['meatloaf', 'mashed potato', 'gravy'], img: 'assets/images/menu/dinner-1.webp' },
+
+                /* ---- Desserts ---- */
+                { name: 'New York Cheesecake', price: 1050, category: 'desserts',
+                  desc: 'Classic crumb crust, dense and creamy, with strawberry compote.',
+                  tags: ['cheesecake', 'strawberry'], badge: 'Best Seller', badgeClass: 'best-seller',
+                  img: 'assets/images/menu/desserts-1.webp' },
+                { name: 'Apple Pie a la Mode', price: 1125, category: 'desserts',
+                  desc: 'Cinnamon apple filling under a golden lattice crust with vanilla ice cream.',
+                  tags: ['apple', 'cinnamon', 'ice cream'], img: 'assets/images/menu/desserts-2.webp' },
+                { name: 'Chocolate Lava Cake', price: 1200, category: 'desserts',
+                  desc: 'Molten chocolate centre, vanilla gelato and a dusting of cocoa.',
+                  tags: ['chocolate', 'molten', 'gelato'], badge: 'New', badgeClass: 'new',
+                  img: 'assets/images/menu/desserts-3.webp' },
+                { name: 'Fudge Brownie a la Mode', price: 1075, category: 'desserts',
+                  desc: 'Warm fudge brownie topped with vanilla ice cream and hot fudge.',
+                  tags: ['brownie', 'fudge', 'ice cream'], img: 'assets/images/menu/desserts-4.webp' },
+                { name: 'Retro Jello', price: 750, category: 'desserts',
+                  desc: 'Butterscotch jelly with whipped cream and a maraschino cherry.',
+                  tags: ['jello', 'butterscotch', 'cherry'], img: 'assets/images/menu/desserts-5.webp' },
+                { name: 'Banana Pudding', price: 925, category: 'desserts',
+                  desc: 'Layers of vanilla custard, banana and crisp vanilla wafers.',
+                  tags: ['banana', 'custard', 'wafers'], img: 'assets/images/menu/desserts-6.webp' },
+                { name: 'Hot Fudge Sundae', price: 950, category: 'desserts',
+                  desc: 'Vanilla ice cream drowned in hot fudge, topped with whipped cream.',
+                  tags: ['sundae', 'fudge', 'whipped cream'], img: 'assets/images/menu/desserts-7.webp' },
+
+                /* ---- Drinks ---- */
+                { name: 'Vanilla Bean Milkshake', price: 895, category: 'drinks',
+                  desc: 'Thick frozen custard made with real vanilla bean and real milk.',
+                  tags: ['milkshake', 'vanilla', 'custard'], img: 'assets/images/menu/drinks-1.webp' },
+                { name: 'Fresh Brewed Coffee', price: 350, category: 'drinks',
+                  desc: 'Fresh refills, brewed to order and served around the clock.',
+                  tags: ['coffee', 'refills'], badge: 'Best Seller', badgeClass: 'best-seller',
+                  img: 'assets/images/menu/drinks-2.webp' },
+                { name: 'Greek Coffee', price: 425, category: 'drinks',
+                  desc: 'Cardamom dusted and served in a brass cup with a glass of water.',
+                  tags: ['greek', 'cardamom', 'brass'], badge: 'New', badgeClass: 'new',
+                  img: 'assets/images/menu/drinks-3.webp' },
+                { name: 'Fresh Squeezed Orange Juice', price: 650, category: 'drinks',
+                  desc: 'Pressed to order every morning. Never from a carton.',
+                  tags: ['orange juice', 'fresh'], img: 'assets/images/menu/drinks-4.webp' },
+                { name: 'Fresh Iced Tea', price: 395, category: 'drinks',
+                  desc: 'Brewed daily, poured over ice with a slice of lemon.',
+                  tags: ['iced tea', 'lemon'], img: 'assets/images/menu/drinks-5.webp' },
+                { name: 'Cold Brew', price: 525, category: 'drinks',
+                  desc: 'Sixteen-hour steep served over one big clear cube.',
+                  tags: ['cold brew', 'oat milk'], img: 'assets/images/menu/drinks-6.webp' }
+            ];
+
+            /* Category label map - also used for the generated JSON-LD. */
+            var CATEGORY_LABELS = {
+                breakfast: 'Breakfast',
+                sandwiches: 'Burgers & Sandwiches',
+                dinner: 'Dinner & Classics',
+                desserts: 'Desserts',
+                drinks: 'Drinks'
+            };
+
+            /* ============================================================
+               3. Structured data - hasMenu is generated from the MENU array
+                  so every price has a single source of truth.
+               ============================================================ */
+            (function injectMenuSchema() {
+                var host = document.getElementById('ldRestaurant');
+                if (!host) return;
+                var sections = {};
+                MENU.forEach(function (item) {
+                    if (!sections[item.category]) sections[item.category] = [];
+                    sections[item.category].push({
+                        '@type': 'MenuItem',
+                        name: item.name,
+                        description: item.desc,
+                        offers: {
+                            '@type': 'Offer',
+                            price: (item.price / 100).toFixed(2),
+                            priceCurrency: 'USD'
+                        }
+                    });
+                });
+                try {
+                    var data = JSON.parse(host.textContent);
+                    data.hasMenu = {
+                        '@type': 'Menu',
+                        name: 'Tick Tock Diner NY Menu',
+                        hasMenuSection: Object.keys(sections).map(function (key) {
+                            return {
+                                '@type': 'MenuSection',
+                                name: CATEGORY_LABELS[key] || key,
+                                hasMenuItem: sections[key]
+                            };
+                        })
+                    };
+                    host.textContent = JSON.stringify(data, null, 2);
+                } catch (e) {
+                    /* Leave the static block untouched if it cannot be parsed. */
+                }
+            })();
+
+            /* ---------- 4. Navigation ---------- */
+            var nav = $('#nav');
+            var navToggle = $('#navToggle');
+            var navPanel = $('#navPanel');
+            var toTop = $('#toTop');
+            var mobileBar = $('#mobileBar');
+
+            function onScroll() {
+                var y = window.pageYOffset || document.documentElement.scrollTop;
+                nav.classList.toggle('is-stuck', y > 24);
+                toTop.classList.toggle('is-visible', y > 600);
+                mobileBar.classList.toggle('is-visible', y > 420);
+            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+
+            function closeDrawer() {
+                nav.classList.remove('is-open');
+                navPanel.classList.remove('is-open');
+                navToggle.setAttribute('aria-expanded', 'false');
+                navToggle.setAttribute('aria-label', 'Open menu');
+            }
+            navToggle.addEventListener('click', function () {
+                var open = !navPanel.classList.contains('is-open');
+                nav.classList.toggle('is-open', open);
+                navPanel.classList.toggle('is-open', open);
+                navToggle.setAttribute('aria-expanded', String(open));
+                navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+            });
+            $$('#navPanel a').forEach(function (link) {
+                link.addEventListener('click', closeDrawer);
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') closeDrawer();
+            });
+
+            /* Scroll-spy: highlight the nav link of the section in view. */
+            var spyLinks = $$('.nav__link');
+            var spyTargets = spyLinks
+                .map(function (l) { return l.getAttribute('href'); })
+                .filter(function (href) { return href && href.charAt(0) === '#'; });
+            if ('IntersectionObserver' in window) {
+                var spy = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (!entry.isIntersecting) return;
+                        var href = '#' + entry.target.id;
+                        spyLinks.forEach(function (l) {
+                            l.classList.toggle('is-active', l.getAttribute('href') === href);
+                        });
+                    });
+                }, { rootMargin: '-45% 0px -50% 0px' });
+                spyTargets.forEach(function (id) {
+                    var section = document.querySelector(id);
+                    if (section) spy.observe(section);
+                });
+            }
+
+            toTop.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            /* ---------- 5. Reveal on scroll (static sections only) ---------- */
+            var revealObserver = ('IntersectionObserver' in window)
+                ? new IntersectionObserver(function (entries, obs) {
+                    entries.forEach(function (entry) {
+                        if (!entry.isIntersecting) return;
+                        entry.target.classList.add('is-visible');
+                        obs.unobserve(entry.target);
+                    });
+                }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 })
+                : null;
+
+            function observeReveals(scope) {
+                var targets = $$('.reveal:not(.is-visible)', scope);
+                if (!revealObserver) {
+                    targets.forEach(function (el) { el.classList.add('is-visible'); });
+                    return;
+                }
+                targets.forEach(function (el) { revealObserver.observe(el); });
+            }
+            observeReveals(document);
+
+            /* ---------- 6. Menu engine ---------- */
+            var grid = $('#menuGrid');
+            var emptyState = $('#menuEmpty');
+            var countLabel = $('#menuCount');
+            var searchInput = $('#menuSearch');
+            var clearButton = $('#menuClear');
+            var tabs = $$('#menuTabs .tab');
+
+            var activeCategory = 'all';
+            var activeQuery = '';
+            var firstRender = true;
+
+            /* Highlight matched words in the RAW text, then escape each
+               segment separately so HTML entities can never be corrupted. */
+            function highlight(text, query) {
+                var terms = normalize(query).split(/\s+/).filter(Boolean);
+                if (!terms.length) return escapeHtml(text);
+
+                var folded = foldText(text);
+                var ranges = [];
+
+                terms.forEach(function (term) {
+                    var from = 0;
+                    var index = folded.text.indexOf(term, from);
+                    while (index !== -1) {
+                        var last = Math.min(index + term.length, folded.text.length) - 1;
+                        var start = folded.map[index];
+                        var end = folded.map[last] + 1;
+                        if (typeof start === 'number' && typeof end === 'number') {
+                            ranges.push([start, end]);
+                        }
+                        from = index + term.length;
+                        index = folded.text.indexOf(term, from);
+                    }
+                });
+                if (!ranges.length) return escapeHtml(text);
+
+                ranges.sort(function (a, b) { return a[0] - b[0]; });
+                var merged = [];
+                ranges.forEach(function (range) {
+                    var last = merged[merged.length - 1];
+                    if (last && range[0] <= last[1]) {
+                        last[1] = Math.max(last[1], range[1]);
+                    } else {
+                        merged.push([range[0], range[1]]);
+                    }
+                });
+
+                var html = '';
+                var cursor = 0;
+                merged.forEach(function (range) {
+                    html += escapeHtml(text.slice(cursor, range[0]));
+                    html += '<mark>' + escapeHtml(text.slice(range[0], range[1])) + '</mark>';
+                    cursor = range[1];
+                });
+                html += escapeHtml(text.slice(cursor));
+                return html;
+            }
+
+            function cardHtml(item, query) {
+                var badge = item.badge
+                    ? '<span class="badge badge--' + item.badgeClass + '">' + escapeHtml(item.badge) + '</span>'
+                    : '';
+                var tags = item.tags.map(function (tag) {
+                    return '<li>' + highlight(tag, query) + '</li>';
+                }).join('');
+
+                /* On the very first render the cards fade in with the rest of
+                   the page. After that they appear immediately, so typing in
+                   the search box never makes the grid flicker. */
+                var revealClass = firstRender ? ' reveal' : '';
+
+                return '<article class="card' + revealClass + '">' +
+                    '<div class="card__media">' +
+                        '<img src="' + item.img + '" alt="' + escapeHtml(item.name) + '" ' +
+                        'data-name="' + escapeHtml(item.name) + '" ' +
+                        'width="480" height="300" loading="lazy" decoding="async">' +
+                        badge +
+                    '</div>' +
+                    '<div class="card__body">' +
+                        '<div class="card__head">' +
+                            '<h3 class="card__title">' + highlight(item.name, query) + '</h3>' +
+                            '<span class="card__price">' + formatPrice(item.price) + '</span>' +
+                        '</div>' +
+                        '<p class="card__desc">' + highlight(item.desc, query) + '</p>' +
+                        '<ul class="card__tags">' + tags + '</ul>' +
+                    '</div>' +
+                '</article>';
+            }
+
+            function renderMenu() {
+                var terms = normalize(activeQuery).split(/\s+/).filter(Boolean);
+                var results = MENU.filter(function (item) {
+                    if (activeCategory !== 'all' && item.category !== activeCategory) return false;
+                    if (!terms.length) return true;
+                    var haystack = normalize(item.name + ' ' + item.desc + ' ' + item.tags.join(' '));
+                    return terms.every(function (term) { return haystack.indexOf(term) !== -1; });
+                });
+
+                grid.innerHTML = results.map(function (item) { return cardHtml(item, activeQuery); }).join('');
+                emptyState.classList.toggle('is-visible', results.length === 0);
+                grid.style.display = results.length ? '' : 'none';
+
+                countLabel.textContent = results.length === 0
+                    ? 'No dishes match your search'
+                    : 'Showing ' + results.length + ' dishes';
+
+                if (firstRender) {
+                    observeReveals(grid);
+                    firstRender = false;
+                }
+            }
+
+            /* Tab navigation: click + keyboard (WAI-ARIA tab pattern). */
+            function selectTab(tab, focus) {
+                activeCategory = tab.dataset.cat;
+                tabs.forEach(function (t) {
+                    var selected = t === tab;
+                    t.setAttribute('aria-selected', String(selected));
+                    t.setAttribute('tabindex', selected ? '0' : '-1');
+                });
+                grid.setAttribute('aria-labelledby', tab.id);
+                if (focus) tab.focus();
+                renderMenu();
+            }
+
+            tabs.forEach(function (tab, index) {
+                tab.addEventListener('click', function () { selectTab(tab, false); });
+                tab.addEventListener('keydown', function (e) {
+                    var next = null;
+                    if (e.key === 'ArrowRight') next = tabs[(index + 1) % tabs.length];
+                    if (e.key === 'ArrowLeft') next = tabs[(index - 1 + tabs.length) % tabs.length];
+                    if (e.key === 'Home') next = tabs[0];
+                    if (e.key === 'End') next = tabs[tabs.length - 1];
+                    if (!next) return;
+                    e.preventDefault();
+                    selectTab(next, true);
+                    next.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+                });
+            });
+
+            /* Instant search: filter on every keystroke, no debounce needed for
+               this data volume and it keeps the interaction feeling immediate. */
+            searchInput.addEventListener('input', function () {
+                activeQuery = searchInput.value;
+                clearButton.classList.toggle('is-visible', activeQuery.length > 0);
+                renderMenu();
+            });
+
+            clearButton.addEventListener('click', function () {
+                searchInput.value = '';
+                activeQuery = '';
+                clearButton.classList.remove('is-visible');
+                searchInput.focus();
+                renderMenu();
+            });
+
+            /* "/" focuses the search box, like a keyboard shortcut on good menus. */
+            document.addEventListener('keydown', function (e) {
+                if (e.key === '/' && document.activeElement !== searchInput) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    searchInput.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                }
+            });
+
+            renderMenu();
+
+            /* ---------- 7. Opening hours & live status (New York time) ---------- */
+            var HOURS = [
+                { day: 'Monday', open: '00:00', close: '24:00' },
+                { day: 'Tuesday', open: '00:00', close: '24:00' },
+                { day: 'Wednesday', open: '00:00', close: '24:00' },
+                { day: 'Thursday', open: '00:00', close: '24:00' },
+                { day: 'Friday', open: '00:00', close: '24:00' },
+                { day: 'Saturday', open: '00:00', close: '24:00' },
+                { day: 'Sunday', open: '00:00', close: '24:00' }
+            ];
+
+            function toMinutes(time) {
+                var parts = time.split(':');
+                return (parseInt(parts[0], 10) * 60) + parseInt(parts[1], 10);
+            }
+
+            function formatTime(time) {
+                var minutes = toMinutes(time) % 1440;
+                var h = Math.floor(minutes / 60);
+                var m = minutes % 60;
+                var suffix = h >= 12 ? 'PM' : 'AM';
+                var h12 = h % 12 === 0 ? 12 : h % 12;
+                return h12 + ':' + (m < 10 ? '0' : '') + m + ' ' + suffix;
+            }
+
+            /* Current date and time in the restaurant's own time zone, so a
+               visitor in another country still sees the correct NY day. */
+            function newYorkNow() {
+                var parts = new Intl.DateTimeFormat('en-US', {
+                    timeZone: 'America/New_York',
+                    weekday: 'short',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hourCycle: 'h23'
+                }).formatToParts(new Date());
+                var pick = function (type) {
+                    for (var i = 0; i < parts.length; i++) {
+                        if (parts[i].type === type) return parts[i].value;
+                    }
+                    return '';
+                };
+                /* Monday-first, matching the order of the HOURS array. */
+                var index = { Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4, Sat: 5, Sun: 6 };
+                return {
+                    dayIndex: index[pick('weekday')],
+                    minutes: (parseInt(pick('hour'), 10) * 60) + parseInt(pick('minute'), 10)
+                };
+            }
+
+            function renderHours() {
+                var now = newYorkNow();
+                var todayIndex = now.dayIndex;
+                var list = $('#hoursList');
+
+                list.innerHTML = HOURS.map(function (row, index) {
+                    var isToday = index === todayIndex;
+                    var spans = row.open === '00:00' && row.close === '24:00'
+                        ? '24 Hours'
+                        : formatTime(row.open) + ' – ' + formatTime(row.close);
+                    return '<li class="hours__row' + (isToday ? ' is-today' : '') + '">' +
+                        '<span class="hours__day">' + row.day + '</span>' +
+                        '<span class="hours__time">' + spans + '</span>' +
+                    '</li>';
+                }).join('');
+
+                var today = HOURS[todayIndex];
+                var opens = toMinutes(today.open);
+                var closes = toMinutes(today.close);
+                var isOpen = now.minutes >= opens && now.minutes < closes;
+
+                var pill = $('#statusPill');
+                var text = $('#statusText');
+                pill.className = 'hours__status ' + (isOpen ? 'status--open' : 'status--closed');
+                text.textContent = isOpen
+                    ? (closes >= 1440 ? 'Open now · 24 hours' : 'Open now · until ' + formatTime(today.close))
+                    : 'Closed · opens ' + formatTime(today.open);
+            }
+            renderHours();
+            setInterval(renderHours, 60000);
+
+            /* ---------- 8. Lazy map embed ---------- */
+            var mapHost = $('#map');
+            var mapLoader = $('#mapLoader');
+            var MAP_SRC = 'https://www.google.com/maps?q=40.75242,-73.993544&z=17&output=embed';
+
+            function loadMap() {
+                if (mapHost.querySelector('iframe')) return;
+                var frame = document.createElement('iframe');
+                frame.src = MAP_SRC;
+                frame.title = 'Map showing Tick Tock Diner NY at 481 8th Avenue, New York';
+                frame.loading = 'lazy';
+                frame.referrerPolicy = 'no-referrer-when-downgrade';
+                frame.setAttribute('allowfullscreen', '');
+                mapHost.appendChild(frame);
+                if (mapLoader) mapLoader.remove();
+            }
+
+            if ('IntersectionObserver' in window) {
+                var mapObserver = new IntersectionObserver(function (entries, obs) {
+                    entries.forEach(function (entry) {
+                        if (!entry.isIntersecting) return;
+                        loadMap();
+                        obs.disconnect();
+                    });
+                }, { rootMargin: '250px' });
+                mapObserver.observe(mapHost);
+            } else {
+                loadMap();
+            }
+
+            /* ---------- 9. Contact form (mailto, no server involved) ---------- */
+            var form = $('#contactForm');
+            var submitButton = $('#contactSubmit');
+
+            function setError(fieldId, errorId, message) {
+                var field = document.getElementById(fieldId);
+                var error = document.getElementById(errorId);
+                field.closest('.field').classList.toggle('is-invalid', Boolean(message));
+                error.textContent = message || '';
+                return !message;
+            }
+
+            function validateForm() {
+                var first = $('#cFirst').value.trim();
+                var last = $('#cLast').value.trim();
+                var email = $('#cEmail').value.trim();
+                var message = $('#cMessage').value.trim();
+
+                var ok = true;
+                ok = setError('cFirst', 'errFirst', first ? '' : 'Please enter your first name.') && ok;
+                ok = setError('cLast', 'errLast', last ? '' : 'Please enter your last name.') && ok;
+                ok = setError('cEmail', 'errEmail',
+                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? '' : 'Please enter a valid email address.') && ok;
+                ok = setError('cMessage', 'errMessage', message ? '' : 'Please write a short message.') && ok;
+                return ok;
+            }
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (!validateForm()) {
+                    toast('Please check the highlighted fields.', 'error');
+                    var firstInvalid = form.querySelector('.is-invalid input, .is-invalid textarea');
+                    if (firstInvalid) firstInvalid.focus();
+                    return;
+                }
+
+                var first = $('#cFirst').value.trim();
+                var last = $('#cLast').value.trim();
+                var email = $('#cEmail').value.trim();
+                var message = $('#cMessage').value.trim();
+
+                var subject = 'Website enquiry from ' + first + ' ' + last;
+                var body = 'Name: ' + first + ' ' + last + '\n' +
+                           'Email: ' + email + '\n\n' +
+                           message + '\n\n— sent from ticktockdinerny.com';
+
+                var mailto = 'mailto:info@ticktockdinerny.com' +
+                    '?subject=' + encodeURIComponent(subject) +
+                    '&body=' + encodeURIComponent(body);
+
+                submitButton.disabled = true;
+                submitButton.textContent = 'Opening your email app…';
+                window.location.href = mailto;
+
+                setTimeout(function () {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Send by email';
+                }, 2500);
+                toast('Opening your email app so you can send the message.', 'info');
+            });
+
+            /* ---------- 10. Floating actions, image fallback & toasts ---------- */
+            var toastHost = $('#toasts');
+
+            function toast(message, type) {
+                var node = document.createElement('div');
+                node.className = 'toast toast--' + (type || 'info');
+                node.textContent = message;
+                toastHost.appendChild(node);
+                setTimeout(function () {
+                    node.style.opacity = '0';
+                    node.style.transform = 'translateY(10px)';
+                    node.style.transition = 'opacity .3s, transform .3s';
+                    setTimeout(function () { node.remove(); }, 320);
+                }, 5200);
+            }
+
+            /* Replace a photo that failed to load with a neutral placeholder
+               that shows the dish name, so the card never looks broken. */
+            function applyImageFallback(img) {
+                var wrap = img.parentNode;
+                if (!wrap || wrap.querySelector('.fallback')) return;
+                var label = document.createElement('span');
+                label.className = 'fallback';
+                label.textContent = img.getAttribute('data-name') || img.getAttribute('alt') || '';
+                wrap.appendChild(label);
+                img.style.display = 'none';
+            }
+            document.addEventListener('error', function (e) {
+                var target = e.target;
+                if (target && target.tagName === 'IMG') applyImageFallback(target);
+            }, true);
+
+            $('#year').textContent = new Date().getFullYear();
+
+            /* Smooth-scroll fallback for browsers without CSS smooth scrolling. */
+            if (!('scrollBehavior' in document.documentElement.style)) {
+                $$('a[href^="#"]').forEach(function (link) {
+                    link.addEventListener('click', function (e) {
+                        var target = document.querySelector(link.getAttribute('href'));
+                        if (!target) return;
+                        e.preventDefault();
+                        target.scrollIntoView();
+                    });
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
